@@ -221,7 +221,7 @@ namespace SQLQuickUtilityTool
 
         private void queryExecutorBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if ((sender as BackgroundWorker).CancellationPending) return;
+            if (e.Cancelled) return;
             _isTimerRunning = false;
             TimeSpan totalTime = DateTime.Now.Subtract(_startTime);
             tslTime.Text = string.Format("Time: {0:00}:{1:00}:{2:00}.{3:00}", totalTime.Hours, totalTime.Minutes, totalTime.Seconds, totalTime.Milliseconds);
