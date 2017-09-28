@@ -33,7 +33,7 @@ namespace SQLQuickUtilityTool
                         result = sqlCmd.ExecuteNonQuery();
                     }
                 }
-                Thread.Sleep(5000);
+                // Thread.Sleep(5000);
                 return result;
             }
             
