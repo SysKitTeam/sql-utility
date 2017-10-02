@@ -210,6 +210,11 @@ namespace SQLQuickUtilityTool
                 }
                 if (t.IsCompleted && !(sender as BackgroundWorker).CancellationPending)
                 {
+                    if (t.Result.GetType() == typeof(Exception) || t.Result.GetType().IsSubclassOf(typeof(Exception)))
+                    {
+                        _exc = t.Result as Exception;
+                        return;
+                    }
                     e.Result = t.Result;
                 } else
                 {

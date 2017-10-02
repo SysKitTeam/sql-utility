@@ -17,7 +17,7 @@ namespace SQLQuickUtilityTool
         /// </summary>
         /// <param name="args">Query parameters.</param>
         /// <returns>Selected rows if a SELECT statement was given in form of a <seealso cref="DataSet"/> object, 
-        /// or number of rows affected if other statements are given</returns>
+        /// number of rows affected if other statements are given, or exception if any was thrown.</returns>
         public static object ExecuteQuery(QueryDTO args)
         {
             using (var sqlConn = new SqlConnection(args.ConnectionString))
@@ -29,14 +29,27 @@ namespace SQLQuickUtilityTool
                     SqlCommand sqlCmd = new SqlCommand(singleQuery, sqlConn);
                     if (singleQuery.Trim().ToLower().StartsWith("select "))
                     {
-                        SqlDataAdapter adapter = new SqlDataAdapter(sqlCmd);
-                        DataSet dataSet = new DataSet();
-                        adapter.Fill(dataSet);
-                        result = dataSet;
+                        try
+                        {
+                            SqlDataAdapter adapter = new SqlDataAdapter(sqlCmd);
+                            DataSet dataSet = new DataSet();
+                            adapter.Fill(dataSet);
+                            result = dataSet;
+                        }
+                        catch (Exception exc)
+                        {
+                            result = exc;
+                        }
                     } else
                     {
                         sqlCmd.Connection.Open();
-                        result = sqlCmd.ExecuteNonQuery();
+                        try
+                        {
+                            result = sqlCmd.ExecuteNonQuery();
+                        } catch (Exception exc)
+                        {
+                            result = exc;
+                        }
                     }
                 }
                 // Thread.Sleep(5000);
