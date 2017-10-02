@@ -12,6 +12,12 @@ namespace SQLQuickUtilityTool
 {
     public class QueryExecutor
     {
+        /// <summary>
+        /// Executes the given query using given connection string.
+        /// </summary>
+        /// <param name="args">Query parameters.</param>
+        /// <returns>Selected rows if a SELECT statement was given in form of a <seealso cref="DataSet"/> object, 
+        /// or number of rows affected if other statements are given</returns>
         public static object ExecuteQuery(QueryDTO args)
         {
             using (var sqlConn = new SqlConnection(args.ConnectionString))
@@ -38,10 +44,5 @@ namespace SQLQuickUtilityTool
             }
             
         }
-
-        //public static async Task<object> ExecuteQueryTask(QueryDTO args)
-        //{
-
-        //}
     }
 }

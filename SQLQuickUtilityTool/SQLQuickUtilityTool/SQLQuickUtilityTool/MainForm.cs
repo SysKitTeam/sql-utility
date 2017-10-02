@@ -31,6 +31,9 @@ namespace SQLQuickUtilityTool
             InitializeComponent();
             tbConnectionStrnig.Text = connectionString;
             _state = State.Ready;
+            _isTimerRunning = false;
+            _exc = null;
+
             updateState();
             queryExecutorBackgroundWorker.WorkerSupportsCancellation = true;
             timerQuery.Start();
@@ -216,7 +219,6 @@ namespace SQLQuickUtilityTool
             {
                 _exc = exc;
             }
-            // if ((sender as BackgroundWorker).CancellationPending) e.Cancel = true;
         }
 
         private void queryExecutorBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -249,7 +251,6 @@ namespace SQLQuickUtilityTool
             // INSERT, UPDATE, DELETE cases:
             if (e.Result.GetType() == typeof(int))
             {
-                dgvResults.Columns.Clear();
                 dgvResults.Columns.Add("result", "result");
                 dgvResults.Rows.Add("Query executed successfully. Rows affected: " + e.Result);
                 tslRowsAffected.Text = "Rows affected: " + e.Result;
