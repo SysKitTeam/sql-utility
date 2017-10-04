@@ -190,10 +190,11 @@ namespace SQLQuickUtilityTool
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            queryExecutorBackgroundWorker.CancelAsync();
             _isTimerRunning = false;
             _state = State.Canceled;
             updateState();
-            queryExecutorBackgroundWorker.CancelAsync();
+            QueryExecutor.CancelExecution();
         }
 
         private void queryExecutorBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -202,23 +203,13 @@ namespace SQLQuickUtilityTool
             QueryDTO args = e.Argument as QueryDTO;
             try
             {
-                Task<object> t = new Task<object>(() => QueryExecutor.ExecuteQuery(args));
-                t.Start();
-                while (!t.IsCompleted && !(sender as BackgroundWorker).CancellationPending)
-                {
-                    Thread.Sleep(10);
-                }
-                if (t.IsCompleted && !(sender as BackgroundWorker).CancellationPending)
-                {
-                    if (t.Result.GetType() == typeof(Exception) || t.Result.GetType().IsSubclassOf(typeof(Exception)))
-                    {
-                        _exc = t.Result as Exception;
-                        return;
-                    }
-                    e.Result = t.Result;
-                } else
+                object result = QueryExecutor.ExecuteQuery(args);
+                if ((sender as BackgroundWorker).CancellationPending)
                 {
                     e.Cancel = true;
+                } else
+                {
+                    e.Result = result;
                 }
             } catch (Exception exc)
             {

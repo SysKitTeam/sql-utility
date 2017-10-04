@@ -99,7 +99,7 @@
             this.tbQuery.Multiline = true;
             this.tbQuery.Name = "tbQuery";
             this.tbQuery.Size = new System.Drawing.Size(471, 170);
-            this.tbQuery.TabIndex = 6;
+            this.tbQuery.TabIndex = 0;
             // 
             // dgvResults
             // 

@@ -12,6 +12,7 @@ namespace SQLQuickUtilityTool
 {
     public class QueryExecutor
     {
+        private static SqlCommand _sqlCmd;
         /// <summary>
         /// Executes the given query using given connection string.
         /// </summary>
@@ -26,36 +27,39 @@ namespace SQLQuickUtilityTool
                 string[] queries = args.QueryText.Split(';');
                 foreach(string singleQuery in queries)
                 {
-                    SqlCommand sqlCmd = new SqlCommand(singleQuery, sqlConn);
+                    _sqlCmd = new SqlCommand(singleQuery, sqlConn);
                     if (singleQuery.Trim().ToLower().StartsWith("select "))
                     {
-                        try
-                        {
-                            SqlDataAdapter adapter = new SqlDataAdapter(sqlCmd);
-                            DataSet dataSet = new DataSet();
-                            adapter.Fill(dataSet);
-                            result = dataSet;
-                        }
-                        catch (Exception exc)
-                        {
-                            result = exc;
-                        }
+                        SqlDataAdapter adapter = new SqlDataAdapter(_sqlCmd);
+                        DataSet dataSet = new DataSet();
+                        adapter.Fill(dataSet);
+                        result = dataSet;
                     } else
                     {
-                        sqlCmd.Connection.Open();
+                        _sqlCmd.Connection.Open();
+                        
                         try
                         {
-                            result = sqlCmd.ExecuteNonQuery();
+                            result = _sqlCmd.ExecuteNonQuery();
                         } catch (Exception exc)
                         {
-                            result = exc;
+                            _sqlCmd.Connection.Close();
+                            throw exc;
                         }
+                        _sqlCmd.Connection.Close();
                     }
                 }
-                // Thread.Sleep(5000);
+                _sqlCmd = null;
                 return result;
             }
-            
+        }
+
+        public static void CancelExecution()
+        {
+            if (_sqlCmd != null)
+            {
+                _sqlCmd.Cancel();
+            }
         }
     }
 }
