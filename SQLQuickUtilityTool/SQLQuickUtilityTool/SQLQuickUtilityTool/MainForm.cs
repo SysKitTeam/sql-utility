@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SQLQuickUtilityTool
@@ -240,6 +239,8 @@ namespace SQLQuickUtilityTool
             if (e.Result.GetType() == typeof(DataSet))
             {
                 dgvResults.ReadOnly = true;
+                DataTable table = new DataTable();
+                
                 dgvResults.DataSource = (e.Result as DataSet).Tables[0];
 
                 tslRowsAffected.Text = "Rows affected: " + (e.Result as DataSet).Tables[0].Rows.Count;

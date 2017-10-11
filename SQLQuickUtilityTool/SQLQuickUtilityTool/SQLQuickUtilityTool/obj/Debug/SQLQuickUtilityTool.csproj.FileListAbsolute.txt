@@ -15,8 +15,6 @@ C:\Users\cotti\Source\Repos\sql-utility\SQLQuickUtilityTool\SQLQuickUtilityTool\
 C:\Users\cotti\Source\Repos\sql-utility\SQLQuickUtilityTool\SQLQuickUtilityTool\SQLQuickUtilityTool\obj\Debug\SQLQuickUtilityTool.pdb
 C:\Users\cotti\Source\Repos\sql-utility\SQLQuickUtilityTool\SQLQuickUtilityTool\SQLQuickUtilityTool\bin\Debug\SQLQuickUtilityTool.exe
 C:\Users\cotti\Source\Repos\sql-utility\SQLQuickUtilityTool\SQLQuickUtilityTool\SQLQuickUtilityTool\bin\Debug\SQLQuickUtilityTool.pdb
-C:\Users\cotti\Source\Repos\sql-utility\SQLQuickUtilityTool\SQLQuickUtilityTool\SQLQuickUtilityTool\bin\Debug\System.Threading.dll
-C:\Users\cotti\Source\Repos\sql-utility\SQLQuickUtilityTool\SQLQuickUtilityTool\SQLQuickUtilityTool\bin\Debug\System.Threading.xml
 C:\Users\cotti\Source\Repos\sql-utility\SQLQuickUtilityTool\SQLQuickUtilityTool\SQLQuickUtilityTool\obj\Debug\SQLQuickUtilityTool.csprojResolveAssemblyReference.cache
 C:\Users\cotti\Source\Repos\sql-utility\SQLQuickUtilityTool\SQLQuickUtilityTool\SQLQuickUtilityTool\obj\Debug\SQLQuickUtilityTool.ConnectionStringForm.resources
 C:\Users\cotti\Source\Repos\sql-utility\SQLQuickUtilityTool\SQLQuickUtilityTool\SQLQuickUtilityTool\obj\Debug\SQLQuickUtilityTool.MainForm.resources

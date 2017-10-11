@@ -79,6 +79,8 @@
             // 
             // tbConnectionStrnig
             // 
+            this.tbConnectionStrnig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbConnectionStrnig.Location = new System.Drawing.Point(12, 39);
             this.tbConnectionStrnig.Name = "tbConnectionStrnig";
             this.tbConnectionStrnig.Size = new System.Drawing.Size(474, 22);
@@ -95,6 +97,8 @@
             // 
             // tbQuery
             // 
+            this.tbQuery.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbQuery.Location = new System.Drawing.Point(15, 96);
             this.tbQuery.Multiline = true;
             this.tbQuery.Name = "tbQuery";
@@ -103,6 +107,9 @@
             // 
             // dgvResults
             // 
+            this.dgvResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvResults.Location = new System.Drawing.Point(12, 360);
             this.dgvResults.Name = "dgvResults";
@@ -177,10 +184,9 @@
             this.Controls.Add(this.lblConnectionString);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnExecute);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "SQL Quick Utility Tool";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
