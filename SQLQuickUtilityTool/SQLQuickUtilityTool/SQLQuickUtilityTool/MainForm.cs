@@ -265,5 +265,13 @@ namespace SQLQuickUtilityTool
                 }
             }
         }
+
+        //private void fillDataGridView(DataSet data)
+        //{
+        //    foreach(DataColumn column in data.Tables[0].Columns)
+        //    {
+        //        if(column.DataType == )
+        //    }
+        //}
     }
 }

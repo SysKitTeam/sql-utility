@@ -184,6 +184,7 @@
             this.Controls.Add(this.lblConnectionString);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnExecute);
+            this.MinimumSize = new System.Drawing.Size(519, 704);
             this.Name = "MainForm";
             this.Text = "SQL Quick Utility Tool";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
