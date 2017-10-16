@@ -222,35 +222,42 @@ namespace SQLQuickUtilityTool
             _isTimerRunning = false;
             TimeSpan totalTime = DateTime.Now.Subtract(_startTime);
             tslTime.Text = string.Format("Time: {0:00}:{1:00}:{2:00}.{3:00}", totalTime.Hours, totalTime.Minutes, totalTime.Seconds, totalTime.Milliseconds);
-            
 
-            dgvResults.DataSource = null;
-            dgvResults.Columns.Clear();
-            if (_exc != null)
+            try
             {
-                _state = State.Error;
+
+                dgvResults.DataSource = null;
+                dgvResults.Columns.Clear();
+                if (_exc != null)
+                {
+                    _state = State.Error;
+                    updateState();
+                    MessageBox.Show(_exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                _state = State.Done;
                 updateState();
-                MessageBox.Show(_exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            _state = State.Done;
-            updateState();
-            // SELECT cases:
-            if (e.Result.GetType() == typeof(DataSet))
-            {
-                dgvResults.ReadOnly = true;
-                DataTable table = new DataTable();
-                
-                dgvResults.DataSource = (e.Result as DataSet).Tables[0];
+                // SELECT cases:
+                if (e.Result.GetType() == typeof(DataSet))
+                {
+                    dgvResults.ReadOnly = true;
+                    DataTable table = new DataTable();
 
-                tslRowsAffected.Text = "Rows affected: " + (e.Result as DataSet).Tables[0].Rows.Count;
+                    dgvResults.DataSource = turnBinariesToText((e.Result as DataSet)).Tables[0];
+
+                    tslRowsAffected.Text = "Rows affected: " + (e.Result as DataSet).Tables[0].Rows.Count;
+                }
+                // INSERT, UPDATE, DELETE cases:
+                if (e.Result.GetType() == typeof(int))
+                {
+                    dgvResults.Columns.Add("result", "result");
+                    dgvResults.Rows.Add("Query executed successfully. Rows affected: " + e.Result);
+                    tslRowsAffected.Text = "Rows affected: " + e.Result;
+                }
             }
-            // INSERT, UPDATE, DELETE cases:
-            if (e.Result.GetType() == typeof(int))
+            catch (Exception exc)
             {
-                dgvResults.Columns.Add("result", "result");
-                dgvResults.Rows.Add("Query executed successfully. Rows affected: " + e.Result);
-                tslRowsAffected.Text = "Rows affected: " + e.Result;
+                MessageBox.Show(exc.Message, "Display Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -266,12 +273,56 @@ namespace SQLQuickUtilityTool
             }
         }
 
-        //private void fillDataGridView(DataSet data)
-        //{
-        //    foreach(DataColumn column in data.Tables[0].Columns)
-        //    {
-        //        if(column.DataType == )
-        //    }
-        //}
+        private DataSet turnBinariesToText(DataSet data)
+        {
+            bool changeNeeded = false;
+            foreach (DataColumn col in data.Tables[0].Columns)
+            {
+                if (col.DataType == typeof(Byte[]))
+                {
+                    changeNeeded = true;
+                }
+            }
+
+            if (!changeNeeded) return data;
+            else
+            {
+                DataTable newTable = new DataTable();
+                DataTable oldTable = data.Tables[0];
+                List<string> byteColumns = new List<string>();
+
+                foreach(DataColumn col in oldTable.Columns)
+                {
+                    if (col.DataType == typeof(Byte[]))
+                    {
+                        newTable.Columns.Add(col.ColumnName, typeof(string));
+                        byteColumns.Add(col.ColumnName);
+                    }
+                    else
+                    {
+                        newTable.Columns.Add(col.ColumnName, col.DataType);
+                    }
+                }
+                foreach(DataRow row in oldTable.Rows)
+                {
+                    DataRow newRow = newTable.NewRow();
+                    foreach (DataColumn col in oldTable.Columns)
+                    {
+                        if (byteColumns.Contains(col.ColumnName))
+                        {
+                            newRow[col.ColumnName] = "<binary_data>";
+                        } else
+                        {
+                            newRow[col.ColumnName] = row[col.ColumnName];
+                        }
+                    }
+                    newTable.Rows.Add(newRow);
+                }
+                DataSet newSet = new DataSet();
+                newSet.Tables.Add(newTable);
+                return newSet;
+            }
+            
+        }
     }
 }

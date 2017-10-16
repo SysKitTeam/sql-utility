@@ -48,13 +48,13 @@
             // 
             this.tbConnectionString.Location = new System.Drawing.Point(15, 63);
             this.tbConnectionString.Name = "tbConnectionString";
-            this.tbConnectionString.Size = new System.Drawing.Size(525, 22);
+            this.tbConnectionString.Size = new System.Drawing.Size(532, 22);
             this.tbConnectionString.TabIndex = 1;
             // 
             // btnAccept
             // 
             this.btnAccept.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAccept.Location = new System.Drawing.Point(134, 108);
+            this.btnAccept.Location = new System.Drawing.Point(156, 101);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(121, 59);
             this.btnAccept.TabIndex = 2;
@@ -65,7 +65,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(261, 108);
+            this.btnCancel.Location = new System.Drawing.Point(283, 101);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(121, 59);
             this.btnCancel.TabIndex = 3;
@@ -79,13 +79,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(561, 191);
+            this.ClientSize = new System.Drawing.Size(561, 178);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.tbConnectionString);
             this.Controls.Add(this.lblInfo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ConnectionStringForm";
             this.Text = "ConnectionStringForm";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
