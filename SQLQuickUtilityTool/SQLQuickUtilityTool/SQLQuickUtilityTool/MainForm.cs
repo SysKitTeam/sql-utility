@@ -273,6 +273,11 @@ namespace SQLQuickUtilityTool
             }
         }
 
+        /// <summary>
+        /// This method is used to filter out data types that cannot be displayed (eg. binary types).
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private DataSet turnBinariesToText(DataSet data)
         {
             bool changeNeeded = false;
