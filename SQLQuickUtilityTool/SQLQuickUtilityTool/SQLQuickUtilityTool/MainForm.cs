@@ -281,6 +281,7 @@ namespace SQLQuickUtilityTool
                 if (col.DataType == typeof(Byte[]))
                 {
                     changeNeeded = true;
+                    break;
                 }
             }
 
